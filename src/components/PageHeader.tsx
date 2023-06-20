@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Space, Typography } from "antd";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface Props {
   title: string | ReactNode;

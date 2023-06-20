@@ -1,6 +1,6 @@
 import { List } from "antd";
 import { CreatableList } from "../../components/hoks/CreatableList";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useClient } from "../../context/client";
 import { EditableSimpleList, SimpleList } from "../../types/entities/SmpleList";
 import { useFetch } from "../../utils/hooks/useFetch";

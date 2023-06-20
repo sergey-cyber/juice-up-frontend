@@ -1,4 +1,3 @@
-import React from "react";
 import { TrackerModal } from "../../../components/TrackerModal";
 import { Form, Input } from "antd";
 import { Todo } from "../../../types/entities/Todo";

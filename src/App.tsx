@@ -1,5 +1,5 @@
 import { Layout, Row, Space, Typography } from "antd";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 const { Header, Content } = Layout;
 import "./App.less";
 import {
@@ -13,6 +13,9 @@ import { ClientContext } from "./context/client";
 import { Client } from "./api/client";
 
 const headerIconStyle = { color: "#fff", fontSize: 20 };
+
+//@ts-ignore
+console.log(process.env.NODE_ENV);
 
 const AppContext = (props: PropsWithChildren) => {
   const client = new Client();

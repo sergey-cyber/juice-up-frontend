@@ -1,4 +1,3 @@
-import React from "react";
 import { HomePage } from "./pages/home/HomePage";
 import { CalendarPage } from "./pages/calendar/Calendar";
 import { Todos } from "./pages/todos/Todos";

@@ -1,7 +1,6 @@
 import { Form, Input } from "antd";
 import { TrackerModal } from "../../components/TrackerModal";
 import { EditableSimpleList } from "../../types/entities/SmpleList";
-import React from "react";
 
 interface Props {
   loading?: boolean;

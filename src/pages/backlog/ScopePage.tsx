@@ -3,7 +3,6 @@ import { useFetch } from "../../utils/hooks/useFetch";
 import { useClient } from "../../context/client";
 import { useState } from "react";
 import { Scope } from "../../types/entities/Backlog";
-import React from "react";
 import { Loader } from "../../components/Loader";
 import { ObjectNotFound } from "../../components/ObjectNotFound";
 import { DeleteOutlined } from "@ant-design/icons";

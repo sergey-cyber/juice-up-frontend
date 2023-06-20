@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useClient } from "../../../context/client";
 import { SimpleListItem } from "../../../types/entities/SmpleList";
 import { Loader } from "../../../components/Loader";

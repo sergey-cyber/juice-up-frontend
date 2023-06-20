@@ -1,3 +1,6 @@
+const IP = "";
+
 export const api_url = {
-  dev: "http://localhost:8080/api"
+  development: "http://localhost:8080/api",
+  production: `https://${IP}/juice-up/api`
 };

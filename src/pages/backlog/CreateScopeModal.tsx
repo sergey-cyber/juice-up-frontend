@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, Input } from "antd";
 import { EditableScope } from "../../types/entities/Backlog";
 import { TrackerModal } from "../../components/TrackerModal";

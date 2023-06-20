@@ -1,11 +1,6 @@
-import {
-  AppstoreAddOutlined,
-  CalendarOutlined,
-  FormOutlined,
-  OrderedListOutlined
-} from "@ant-design/icons";
+import { CalendarOutlined } from "@ant-design/icons";
 import { Avatar, Row, Space, Typography } from "antd";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   toBacklog,

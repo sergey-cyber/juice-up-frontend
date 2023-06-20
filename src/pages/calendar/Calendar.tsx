@@ -1,6 +1,6 @@
 import { Badge, Calendar } from "antd";
 import dayjs from "dayjs";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetch } from "../../utils/hooks/useFetch";
 import { useClient } from "../../context/client";

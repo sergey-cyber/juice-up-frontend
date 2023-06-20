@@ -1,7 +1,6 @@
 import { Popover, Typography } from "antd";
 import { TextProps } from "antd/es/typography/Text";
 import { TitleProps } from "antd/es/typography/Title";
-import React from "react";
 import { PropsWithChildren, useCallback } from "react";
 
 export function Elipsis(props: PropsWithChildren<{ type?: "Text" | "Title" }>) {
