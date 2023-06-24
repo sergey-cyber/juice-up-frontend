@@ -6,6 +6,7 @@ import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { Loader } from "../../components/Loader";
 import { PageHeader } from "../../components/PageHeader";
 import { Button, Form, Input, Select } from "antd";
+import { Description } from "../../components/formElements/Description";
 
 export const TodoPage = () => {
   const client = useClient();
@@ -43,9 +44,7 @@ export const TodoPage = () => {
         <Form.Item name={"name"} label="Name" required>
           <Input />
         </Form.Item>
-        <Form.Item name={"description"} label="Description">
-          <Input.TextArea />
-        </Form.Item>
+        <Description />
         <Form.Item name={"status"} label="Status">
           <Select
             //style={{ width: 120 }}
