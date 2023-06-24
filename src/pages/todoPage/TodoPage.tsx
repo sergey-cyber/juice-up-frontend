@@ -30,6 +30,7 @@ export const TodoPage = () => {
     setIsSaving(true);
     client.todos
       .update({ ...todo, ...form.getFieldsValue() })
+      .then(() => history.back())
       .finally(() => setIsSaving(false));
   };
 
