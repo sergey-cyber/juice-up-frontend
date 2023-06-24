@@ -12,6 +12,8 @@ import { CreateTodoModal } from "../todos/component/CreateTodoModal";
 import { List, Space } from "antd";
 import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
+import { isTodoCompleted } from "../todos/utils";
+import { CompletedIcon } from "../../components/icons/CompletedIcon";
 
 export const ScopePage = () => {
   const client = useClient();
@@ -87,7 +89,7 @@ export const ScopePage = () => {
               ]}
             >
               <List.Item.Meta
-                avatar={ICONS.todo}
+                avatar={isTodoCompleted(item) ? <CompletedIcon /> : ICONS.todo}
                 title={
                   <NavLink to={`./${item.id}`}>
                     <Elipsis>{item.name}</Elipsis>

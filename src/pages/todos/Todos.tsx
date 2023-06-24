@@ -4,16 +4,13 @@ import { useClient } from "../../context/client";
 import { useFetch } from "../../utils/hooks/useFetch";
 import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { FloatButton, List, Typography } from "antd";
-import {
-  CheckCircleOutlined,
-  DeleteOutlined,
-  PlusOutlined
-} from "@ant-design/icons";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { CreateTodoModal } from "./component/CreateTodoModal";
 import { Loader } from "../../components/Loader";
 import { isTodoCompleted } from "./utils";
 import { Elipsis } from "../../components/Elipsis";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
+import { CompletedIcon } from "../../components/icons/CompletedIcon";
 
 export const Todos = () => {
   const params = useParams();
@@ -109,7 +106,3 @@ export const Todos = () => {
     </>
   );
 };
-
-function CompletedIcon() {
-  return <CheckCircleOutlined style={{ color: "green" }} />;
-}
