@@ -12,7 +12,7 @@ import { CreateTodoModal } from "../todos/component/CreateTodoModal";
 import { List, Space } from "antd";
 import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
-import { isTodoCompleted } from "../todos/utils";
+import { alphabeticalSort, isTodoCompleted } from "../todos/utils";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
 import { SearchableList } from "../../components/SearchableList";
 
@@ -33,7 +33,7 @@ export const ScopePage = () => {
 
   const { loading: todosLoading, reload } = useFetch(
     () => client.todos.searchByScopeId(scopeId),
-    (res) => setTodos(res),
+    (res) => setTodos(alphabeticalSort(res)),
     undefined,
     [scopeId]
   );

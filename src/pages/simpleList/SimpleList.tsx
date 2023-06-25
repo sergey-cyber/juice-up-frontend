@@ -11,6 +11,7 @@ import { Elipsis } from "../../components/Elipsis";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CreateListModal } from "./CreacteListModal";
 import { SearchableList } from "../../components/SearchableList";
+import { alphabeticalSort } from "../todos/utils";
 
 export const SimpleListPage = () => {
   const client = useClient();
@@ -22,7 +23,7 @@ export const SimpleListPage = () => {
 
   const { loading, reload } = useFetch(
     () => client.simpleList.getList(),
-    (res) => setList(res)
+    (res) => setList(alphabeticalSort(res))
   );
 
   const deleteItem = (id: number) => {

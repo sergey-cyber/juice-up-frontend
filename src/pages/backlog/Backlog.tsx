@@ -11,6 +11,7 @@ import { CreatableList } from "../../components/hoks/CreatableList";
 import { CreateScopeModal } from "./CreateScopeModal";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { SearchableList } from "../../components/SearchableList";
+import { alphabeticalSort } from "../todos/utils";
 
 export const Backlog = () => {
   const client = useClient();
@@ -24,7 +25,7 @@ export const Backlog = () => {
 
   const { loading } = useFetch(
     () => client.scopes.getList(),
-    (res) => setScopes(res),
+    (res) => setScopes(alphabeticalSort(res)),
     undefined,
     [reloadKey]
   );

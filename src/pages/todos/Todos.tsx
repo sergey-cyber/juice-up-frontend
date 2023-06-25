@@ -7,7 +7,7 @@ import { FloatButton, List, Typography } from "antd";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { CreateTodoModal } from "./component/CreateTodoModal";
 import { Loader } from "../../components/Loader";
-import { isTodoCompleted } from "./utils";
+import { alphabeticalSort, isTodoCompleted } from "./utils";
 import { Elipsis } from "../../components/Elipsis";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
@@ -27,7 +27,7 @@ export const Todos = () => {
 
   const { loading } = useFetch(
     () => client.todos.getByDay(params.day || ""),
-    (res) => setTodos(res),
+    (res) => setTodos(alphabeticalSort(res)),
     undefined,
     [reloadKey]
   );
