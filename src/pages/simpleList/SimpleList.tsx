@@ -13,6 +13,7 @@ import { CreateListModal } from "./CreacteListModal";
 import { SearchableList } from "../../components/SearchableList";
 import { alphabeticalSort } from "../todos/utils";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
+import { PopConfirm } from "../../components/PopConfirm";
 
 export const SimpleListPage = () => {
   const client = useClient();
@@ -70,10 +71,9 @@ export const SimpleListPage = () => {
           renderItem={(list) => (
             <List.Item
               actions={[
-                <DeleteOutlined
-                  onClick={() => deleteItem(list.id)}
-                  style={{ color: "#408fff" }}
-                />
+                <PopConfirm onConfirm={() => deleteItem(list.id)}>
+                  <DeleteOutlined style={{ color: "#408fff" }} />
+                </PopConfirm>
               ]}
             >
               <List.Item.Meta

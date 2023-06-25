@@ -13,6 +13,7 @@ import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
 import { SearchableList } from "../../components/SearchableList";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
+import { PopConfirm } from "../../components/PopConfirm";
 
 export const Todos = () => {
   const params = useParams();
@@ -80,10 +81,9 @@ export const Todos = () => {
         renderItem={(item: Todo) => (
           <List.Item
             actions={[
-              <DeleteOutlined
-                onClick={() => deleteTodo(item.id)}
-                style={{ color: "#408fff" }}
-              />
+              <PopConfirm onConfirm={() => deleteTodo(item.id)}>
+                <DeleteOutlined style={{ color: "#408fff" }} />
+              </PopConfirm>
             ]}
           >
             <List.Item.Meta

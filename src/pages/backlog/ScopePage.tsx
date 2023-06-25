@@ -16,6 +16,7 @@ import { alphabeticalSort, isTodoCompleted } from "../todos/utils";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
 import { SearchableList } from "../../components/SearchableList";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
+import { PopConfirm } from "../../components/PopConfirm";
 
 export const ScopePage = () => {
   const client = useClient();
@@ -94,10 +95,9 @@ export const ScopePage = () => {
           renderItem={(item: Todo) => (
             <List.Item
               actions={[
-                <DeleteOutlined
-                  onClick={() => deleteTodo(item.id)}
-                  style={{ color: "#408fff" }}
-                />
+                <PopConfirm onConfirm={() => deleteTodo(item.id)}>
+                  <DeleteOutlined style={{ color: "#408fff" }} />
+                </PopConfirm>
               ]}
             >
               <List.Item.Meta

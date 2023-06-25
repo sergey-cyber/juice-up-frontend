@@ -13,6 +13,7 @@ import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { SearchableList } from "../../components/SearchableList";
 import { alphabeticalSort } from "../todos/utils";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
+import { PopConfirm } from "../../components/PopConfirm";
 
 export const Backlog = () => {
   const client = useClient();
@@ -71,10 +72,9 @@ export const Backlog = () => {
           renderItem={(item) => (
             <List.Item
               actions={[
-                <DeleteOutlined
-                  onClick={() => deleteScope(item.id)}
-                  style={{ color: "#408fff" }}
-                />
+                <PopConfirm onConfirm={() => deleteScope(item.id)}>
+                  <DeleteOutlined style={{ color: "#408fff" }} />
+                </PopConfirm>
               ]}
             >
               <List.Item.Meta
