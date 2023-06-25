@@ -14,13 +14,14 @@ import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { isTodoCompleted } from "../todos/utils";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
+import { SearchableList } from "../../components/SearchableList";
 
 export const ScopePage = () => {
   const client = useClient();
   const { scopeId } = useParams();
 
   const [scope, setScope] = useState<Scope>();
-  const [todos, setTodos] = useState<Todo[]>();
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [open, setOpen] = useState(false);
 
   const { loading: scopeLoading } = useFetch(
@@ -75,11 +76,12 @@ export const ScopePage = () => {
           </Space>
         }
       >
-        <List
+        <SearchableList
           size="small"
           bordered
-          dataSource={todos || []}
-          renderItem={(item) => (
+          dataSource={todos}
+          // @ts-ignore
+          renderItem={(item: Todo) => (
             <List.Item
               actions={[
                 <DeleteOutlined

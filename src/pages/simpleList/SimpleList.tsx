@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 import { Elipsis } from "../../components/Elipsis";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CreateListModal } from "./CreacteListModal";
+import { SearchableList } from "../../components/SearchableList";
 
 export const SimpleListPage = () => {
   const client = useClient();
@@ -53,7 +54,7 @@ export const SimpleListPage = () => {
         onAddClick={() => setOpen(true)}
         headerTitle={"Simple lists"}
       >
-        <List
+        <SearchableList
           size="small"
           bordered
           dataSource={lists}

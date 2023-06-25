@@ -10,6 +10,7 @@ import { Loader } from "../../components/Loader";
 import { CreatableList } from "../../components/hoks/CreatableList";
 import { CreateScopeModal } from "./CreateScopeModal";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
+import { SearchableList } from "../../components/SearchableList";
 
 export const Backlog = () => {
   const client = useClient();
@@ -54,7 +55,7 @@ export const Backlog = () => {
   return (
     <>
       <CreatableList headerTitle="Backlog" onAddClick={() => setOpen(true)}>
-        <List
+        <SearchableList
           size="small"
           bordered
           dataSource={scopes}

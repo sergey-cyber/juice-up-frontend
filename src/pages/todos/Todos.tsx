@@ -11,6 +11,7 @@ import { isTodoCompleted } from "./utils";
 import { Elipsis } from "../../components/Elipsis";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
+import { SearchableList } from "../../components/SearchableList";
 
 export const Todos = () => {
   const params = useParams();
@@ -63,11 +64,12 @@ export const Todos = () => {
       <Typography.Title style={{ textAlign: "center", marginTop: 0 }} level={5}>
         {params.day}
       </Typography.Title>
-      <List
+      <SearchableList
         size="small"
         bordered
         dataSource={todos}
-        renderItem={(item) => (
+        // @ts-ignore
+        renderItem={(item: Todo) => (
           <List.Item
             actions={[
               <DeleteOutlined
