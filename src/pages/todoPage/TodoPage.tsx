@@ -7,11 +7,13 @@ import { Loader } from "../../components/Loader";
 import { PageHeader } from "../../components/PageHeader";
 import { Button, Form, Input, Select } from "antd";
 import { Description } from "../../components/formElements/Description";
+import { Events, useEvent } from "../../utils/hooks/useEvents";
 
 export const TodoPage = () => {
   const client = useClient();
   const { todoId } = useParams();
   const [form] = Form.useForm<Todo>();
+  const { setEvent } = useEvent();
 
   const [todo, setTodo] = useState<Todo>();
   const [isSaving, setIsSaving] = useState(false);
@@ -30,7 +32,11 @@ export const TodoPage = () => {
     setIsSaving(true);
     client.todos
       .update({ ...todo, ...form.getFieldsValue() })
-      .then(() => history.back())
+      .then(() => {
+        setEvent(Events.UPDATE_TODO_SUCCESSFULY);
+        history.back();
+      })
+      .catch(() => setEvent(Events.UPDATE_TODO_FAILURE))
       .finally(() => setIsSaving(false));
   };
 

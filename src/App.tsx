@@ -1,4 +1,4 @@
-import { Layout, Row, Space, Typography } from "antd";
+import { Layout, Row, Space, Typography, notification } from "antd";
 import { PropsWithChildren } from "react";
 const { Header, Content } = Layout;
 import "./App.less";
@@ -11,6 +11,7 @@ import { useNavigate, useRoutes } from "react-router-dom";
 import { routes, toCalendar, toHome } from "./route-config";
 import { ClientContext } from "./context/client";
 import { Client } from "./api/client";
+import { NotificationContext } from "./context/NotificationContext";
 
 const headerIconStyle = { color: "#fff", fontSize: 20 };
 
@@ -19,9 +20,13 @@ console.log(process.env.NODE_ENV);
 
 const AppContext = (props: PropsWithChildren) => {
   const client = new Client();
+  const [api, contextHolder] = notification.useNotification();
   return (
     <ClientContext.Provider value={client}>
-      {props.children}
+      <NotificationContext.Provider value={api}>
+        {contextHolder}
+        {props.children}
+      </NotificationContext.Provider>
     </ClientContext.Provider>
   );
 };

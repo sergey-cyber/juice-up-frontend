@@ -15,10 +15,12 @@ import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { alphabeticalSort, isTodoCompleted } from "../todos/utils";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
 import { SearchableList } from "../../components/SearchableList";
+import { Events, useEvent } from "../../utils/hooks/useEvents";
 
 export const ScopePage = () => {
   const client = useClient();
   const { scopeId } = useParams();
+  const { setEvent } = useEvent();
 
   const [scope, setScope] = useState<Scope>();
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -39,7 +41,13 @@ export const ScopePage = () => {
   );
 
   const deleteTodo = (todoId: number) => {
-    client.todos.delete(todoId).then(() => reload());
+    client.todos
+      .delete(todoId)
+      .then(() => {
+        setEvent(Events.DELETE_TODO_SUCCESSFULY);
+        reload();
+      })
+      .catch(() => setEvent(Events.DELETE_TODO_FAILURE));
   };
 
   const addTodo = (todo: Omit<Todo, "id" | "day">) => {
@@ -51,9 +59,11 @@ export const ScopePage = () => {
           scope: scope.id
         })
         .then(() => {
+          setEvent(Events.CREATE_TODO_SUCCESSFULY);
           setOpen(false);
           reload();
-        });
+        })
+        .catch(() => setEvent(Events.CREATE_TODO_FAILURE));
     }
   };
 

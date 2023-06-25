@@ -12,6 +12,7 @@ import { Elipsis } from "../../components/Elipsis";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CompletedIcon } from "../../components/icons/CompletedIcon";
 import { SearchableList } from "../../components/SearchableList";
+import { Events, useEvent } from "../../utils/hooks/useEvents";
 
 export const Todos = () => {
   const params = useParams();
@@ -22,6 +23,7 @@ export const Todos = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [isDeleting, setIsDeliting] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
+  const { setEvent } = useEvent();
 
   const reload = () => setReloadKey(reloadKey + 1);
 
@@ -41,9 +43,11 @@ export const Todos = () => {
         status: TodoStatus.IN_PROGRESS
       })
       .then(() => {
+        setEvent(Events.CREATE_TODO_SUCCESSFULY);
         setOpen(false);
         reload();
       })
+      .catch(() => setEvent(Events.CREATE_TODO_FAILURE))
       .finally(() => setIsCreating(false));
   };
 
@@ -51,7 +55,11 @@ export const Todos = () => {
     setIsDeliting(true);
     client.todos
       .delete(id)
-      .then(() => reload())
+      .then(() => {
+        setEvent(Events.DELETE_TODO_SUCCESSFULY);
+        reload();
+      })
+      .catch(() => setEvent(Events.DELETE_TODO_FAILURE))
       .finally(() => setIsDeliting(false));
   };
 

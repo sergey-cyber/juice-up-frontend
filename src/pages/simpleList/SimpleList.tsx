@@ -12,9 +12,11 @@ import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { CreateListModal } from "./CreacteListModal";
 import { SearchableList } from "../../components/SearchableList";
 import { alphabeticalSort } from "../todos/utils";
+import { Events, useEvent } from "../../utils/hooks/useEvents";
 
 export const SimpleListPage = () => {
   const client = useClient();
+  const { setEvent } = useEvent();
 
   const [lists, setList] = useState<SimpleList[]>([]);
   const [open, setOpen] = useState(false);
@@ -30,7 +32,11 @@ export const SimpleListPage = () => {
     setIsDeliting(true);
     client.simpleList
       .delete(id)
-      .then(() => reload())
+      .then(() => {
+        setEvent(Events.DELETE_SIMPLE_LIST_SUCCESSFULY);
+        reload();
+      })
+      .catch(() => setEvent(Events.DELETE_SIMPLE_LIST_FAILURE))
       .finally(() => setIsDeliting(false));
   };
 
@@ -39,9 +45,11 @@ export const SimpleListPage = () => {
     client.simpleList
       .create(value)
       .then(() => {
+        setEvent(Events.CREATE_SIMPLE_LIST_SUCCESSFULY);
         reload();
         setOpen(false);
       })
+      .catch(() => setEvent(Events.CREATE_SIMPLE_LIST_FAILURE))
       .finally(() => setIsCreating(false));
   };
 

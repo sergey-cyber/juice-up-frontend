@@ -13,10 +13,12 @@ import { DeleteOutlined, PlusOutlined, SaveOutlined } from "@ant-design/icons";
 import { PageHeader } from "../../components/PageHeader";
 import { SavedItem } from "./components/SavedItem";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
+import { Events, useEvent } from "../../utils/hooks/useEvents";
 
 export const ListItem = () => {
   const client = useClient();
   const { listId } = useParams();
+  const { setEvent } = useEvent();
 
   const [list, setList] = useState<SimpleList>();
   const [listItems, setListItems] = useState<SimpleListItem[]>([]);
@@ -47,7 +49,11 @@ export const ListItem = () => {
         }));
       client.simpleListItem
         .createItems(requestValue)
-        .then(() => reload())
+        .then(() => {
+          setEvent(Events.SIMPLE_LIST_ITEMS_SAVED_SUCCESSFULY);
+          reload();
+        })
+        .catch(() => setEvent(Events.SIMPLE_LIST_ITEMS_SAVED_FAILURE))
         .finally(() => setIsSaving(false));
     }
   };

@@ -12,6 +12,7 @@ import { CreateScopeModal } from "./CreateScopeModal";
 import { ICONS } from "../../components/icons/ObjectTypeIcon";
 import { SearchableList } from "../../components/SearchableList";
 import { alphabeticalSort } from "../todos/utils";
+import { Events, useEvent } from "../../utils/hooks/useEvents";
 
 export const Backlog = () => {
   const client = useClient();
@@ -20,6 +21,7 @@ export const Backlog = () => {
   const [isCreating, setIscreating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
+  const { setEvent } = useEvent();
 
   const reload = () => setReloadKey(reloadKey + 1);
 
@@ -35,9 +37,11 @@ export const Backlog = () => {
     client.scopes
       .create(scope)
       .then(() => {
+        setEvent(Events.CREATE_SCOPE_SUCCESSFULY);
         setOpen(false);
         reload();
       })
+      .catch(() => setEvent(Events.CREATE_SCOPE_FAILURE))
       .finally(() => setIscreating(false));
   };
 
@@ -45,7 +49,11 @@ export const Backlog = () => {
     setIsDeleting(true);
     client.scopes
       .delete(id)
-      .then(() => reload())
+      .then(() => {
+        setEvent(Events.DELETE_SCOPE_SUCCESSFULY);
+        reload();
+      })
+      .catch(() => setEvent(Events.DELETE_SCOPE_FAILURE))
       .finally(() => setIsDeleting(false));
   };
 
