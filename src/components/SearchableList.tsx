@@ -1,5 +1,5 @@
 import { Input, List, ListProps, Row } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Scope } from "../types/entities/Backlog";
 import { Todo } from "../types/entities/Todo";
 import { SimpleList } from "../types/entities/SmpleList";
@@ -11,6 +11,13 @@ export const SearchableList = (props: ListProps<SerachableItem>) => {
   const [filteredTodos, setFilteredTodos] = useState<SerachableItem[]>(
     props.dataSource || []
   );
+
+  useEffect(
+    () => setFilteredTodos(props.dataSource || []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.dataSource?.length]
+  );
+
   return (
     <List
       header={
