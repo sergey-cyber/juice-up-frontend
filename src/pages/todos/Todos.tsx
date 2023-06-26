@@ -3,12 +3,8 @@ import { NavLink, useParams } from "react-router-dom";
 import { useClient } from "../../context/client";
 import { useFetch } from "../../utils/hooks/useFetch";
 import { Todo, TodoStatus } from "../../types/entities/Todo";
-import { FloatButton, List, Space, Typography } from "antd";
-import {
-  DeleteOutlined,
-  ExclamationCircleOutlined,
-  PlusOutlined
-} from "@ant-design/icons";
+import { FloatButton, List, Typography } from "antd";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { CreateTodoModal } from "./component/CreateTodoModal";
 import { Loader } from "../../components/Loader";
 import { alphabeticalSort, isTodoCompleted } from "./utils";
@@ -95,12 +91,7 @@ export const Todos = () => {
                 isTodoCompleted(item) ? (
                   <CompletedIcon />
                 ) : (
-                  <Space>
-                    {ICONS.todo}
-                    {item.isImportant && (
-                      <ExclamationCircleOutlined style={{ color: "#ca6c00" }} />
-                    )}
-                  </Space>
+                  ICONS.todo(item.isImportant)
                 )
               }
               title={

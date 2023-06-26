@@ -101,7 +101,13 @@ export const ScopePage = () => {
               ]}
             >
               <List.Item.Meta
-                avatar={isTodoCompleted(item) ? <CompletedIcon /> : ICONS.todo}
+                avatar={
+                  isTodoCompleted(item) ? (
+                    <CompletedIcon />
+                  ) : (
+                    ICONS.todo(item.isImportant)
+                  )
+                }
                 title={
                   <NavLink to={`./${item.id}`}>
                     <Elipsis>{item.name}</Elipsis>

@@ -18,7 +18,7 @@ export const HomePage = () => {
       <Row justify="space-between">
         <Item
           link={toTodos(dayjs().format(FORMAT))}
-          icon={ICONS.todo}
+          icon={ICONS.todo()}
           caption="Todo today"
         />
         <Item
