@@ -5,7 +5,7 @@ import { useFetch } from "../../utils/hooks/useFetch";
 import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { Loader } from "../../components/Loader";
 import { PageHeader } from "../../components/PageHeader";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Checkbox, Form, Input, Select } from "antd";
 import { Description } from "../../components/formElements/Description";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
 
@@ -60,6 +60,9 @@ export const TodoPage = () => {
               label: status.charAt(0).toUpperCase() + status.slice(1)
             }))}
           />
+        </Form.Item>
+        <Form.Item valuePropName="checked" name={"isImportant"}>
+          <Checkbox>Mark as important</Checkbox>
         </Form.Item>
         <Form.Item>
           <Button onClick={save} type="primary">

@@ -13,4 +13,5 @@ export interface Todo {
   user: number; // user ref
   scope: number;
   status?: TodoStatus;
+  isImportant?: boolean;
 }
