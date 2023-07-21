@@ -1,3 +1,4 @@
+import { Auth } from "./login/auth";
 import { Scopes } from "./scopes/scopes";
 import { SimpleList } from "./simpleList/simpleList";
 import { SimpleListItems } from "./simpleList/simpleListItem";
@@ -8,11 +9,13 @@ export class Client {
   public scopes;
   public simpleList;
   public simpleListItem;
+  public auth;
 
   constructor() {
     this.todos = new Todos();
     this.scopes = new Scopes();
     this.simpleList = new SimpleList();
     this.simpleListItem = new SimpleListItems();
+    this.auth = new Auth();
   }
 }

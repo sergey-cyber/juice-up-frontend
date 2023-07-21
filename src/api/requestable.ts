@@ -1,5 +1,5 @@
-import axios from "axios";
 import { api_url } from "../../config/api";
+import { axiosInstance } from "./axios";
 
 export class Requestable {
   private path;
@@ -13,10 +13,19 @@ export class Requestable {
   }
 
   public request(method: string, url: string, payload?: object) {
-    return axios({
+    const token: string | null = localStorage.getItem("token");
+
+    return axiosInstance({
       method: method,
       url: api_url[this.build_mode] + this.path + url,
-      data: payload
+      data: payload,
+      ...(token
+        ? {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        : {})
     }).then((response) => response.data);
   }
 }

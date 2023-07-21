@@ -12,6 +12,7 @@ import { routes, toCalendar, toHome } from "./route-config";
 import { ClientContext } from "./context/client";
 import { Client } from "./api/client";
 import { NotificationContext } from "./context/NotificationContext";
+import { AxiosInterceptor } from "./components/AxiosInterceptor";
 
 const headerIconStyle = { color: "#fff", fontSize: 20 };
 
@@ -24,8 +25,10 @@ const AppContext = (props: PropsWithChildren) => {
   return (
     <ClientContext.Provider value={client}>
       <NotificationContext.Provider value={api}>
-        {contextHolder}
-        {props.children}
+        <AxiosInterceptor>
+          {contextHolder}
+          {props.children}
+        </AxiosInterceptor>
       </NotificationContext.Provider>
     </ClientContext.Provider>
   );

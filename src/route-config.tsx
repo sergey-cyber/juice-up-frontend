@@ -6,6 +6,7 @@ import { Backlog } from "./pages/backlog/Backlog";
 import { ScopePage } from "./pages/backlog/ScopePage";
 import { SimpleListPage } from "./pages/simpleList/SimpleList";
 import { ListItem } from "./pages/simpleList/ListItem";
+import { Login } from "./pages/login/Login";
 
 export const routes = [
   {
@@ -37,12 +38,16 @@ export const routes = [
     element: <TodoPage />
   },
   {
-    path: "simple-list",
+    path: "/simple-list",
     element: <SimpleListPage />
   },
   {
-    path: "simple-list/:listId",
+    path: "/simple-list/:listId",
     element: <ListItem />
+  },
+  {
+    path: "/login",
+    element: <Login />
   },
   {
     path: "*",

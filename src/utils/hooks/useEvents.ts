@@ -32,7 +32,13 @@ export enum Events {
 
   // Simple list items
   SIMPLE_LIST_ITEMS_SAVED_SUCCESSFULY,
-  SIMPLE_LIST_ITEMS_SAVED_FAILURE
+  SIMPLE_LIST_ITEMS_SAVED_FAILURE,
+
+  //Auth
+  REGISTRATION_SUCCESSFUY,
+  REGISTRATION_FAILURE,
+  LOGIN_SUCCESFULY,
+  LOGIN_FAILURE
 }
 
 export const useEvent = () => {
@@ -182,6 +188,26 @@ export const useEvent = () => {
           notify.error({
             ...defaultProps,
             message: "Error saving items"
+          });
+          break;
+
+        //Auth
+        case Events.REGISTRATION_SUCCESSFUY:
+          notify.success({
+            ...defaultProps,
+            message: "Registration successful, please login"
+          });
+          break;
+        case Events.REGISTRATION_FAILURE:
+          notify.error({
+            ...defaultProps,
+            message: "Registration failure"
+          });
+          break;
+        case Events.LOGIN_FAILURE:
+          notify.error({
+            ...defaultProps,
+            message: "Login failure"
           });
           break;
 
