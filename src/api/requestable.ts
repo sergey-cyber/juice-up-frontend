@@ -1,5 +1,7 @@
+import axios, { AxiosError } from "axios";
 import { api_url } from "../../config/api";
-import { axiosInstance } from "./axios";
+import { setError } from "../store/reducers/apiErrors";
+import { store } from "../store/store";
 
 export class Requestable {
   private path;
@@ -15,7 +17,7 @@ export class Requestable {
   public request(method: string, url: string, payload?: object) {
     const token: string | null = localStorage.getItem("token");
 
-    return axiosInstance({
+    return axios({
       method: method,
       url: api_url[this.build_mode] + this.path + url,
       data: payload,
@@ -26,6 +28,10 @@ export class Requestable {
             }
           }
         : {})
-    }).then((response) => response.data);
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) =>
+        store.dispatch(setError(err.response?.status))
+      );
   }
 }

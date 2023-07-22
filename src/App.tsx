@@ -7,12 +7,18 @@ import {
   HomeOutlined,
   MenuOutlined
 } from "@ant-design/icons";
-import { useNavigate, useRoutes } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useRoutes
+} from "react-router-dom";
 import { routes, toCalendar, toHome } from "./route-config";
 import { ClientContext } from "./context/client";
 import { Client } from "./api/client";
 import { NotificationContext } from "./context/NotificationContext";
-import { AxiosInterceptor } from "./components/AxiosInterceptor";
+import { useSelector } from "react-redux";
+import { RootState } from "./store/store";
 
 const headerIconStyle = { color: "#fff", fontSize: 20 };
 
@@ -22,13 +28,12 @@ console.log(process.env.NODE_ENV);
 const AppContext = (props: PropsWithChildren) => {
   const client = new Client();
   const [api, contextHolder] = notification.useNotification();
+
   return (
     <ClientContext.Provider value={client}>
       <NotificationContext.Provider value={api}>
-        <AxiosInterceptor>
-          {contextHolder}
-          {props.children}
-        </AxiosInterceptor>
+        {contextHolder}
+        {props.children}
       </NotificationContext.Provider>
     </ClientContext.Provider>
   );
@@ -36,7 +41,16 @@ const AppContext = (props: PropsWithChildren) => {
 
 export function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const content = useRoutes(routes);
+
+  const errorStatus = useSelector(
+    (state: RootState) => state.apiErrors.errorStatus
+  );
+
+  if (errorStatus === 401 && location.pathname !== "/login") {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <AppContext>
