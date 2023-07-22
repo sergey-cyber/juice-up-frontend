@@ -29,7 +29,10 @@ export class Requestable {
           }
         : {})
     })
-      .then((response) => response.data)
+      .then((response) => {
+        store.dispatch(setError(null));
+        return response.data;
+      })
       .catch((err: AxiosError) =>
         store.dispatch(setError(err.response?.status))
       );

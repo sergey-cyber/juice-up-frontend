@@ -26,6 +26,6 @@ export const apiErrorsReducer = (
 };
 
 // Actions
-export const setError = (error?: number) => {
+export const setError = (error?: number | null) => {
   return { type: SET_ERROR, payload: error };
 };
