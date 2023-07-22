@@ -23,9 +23,12 @@ export const AxiosInterceptor = ({ children }: Props) => {
       return Promise.reject();
     };
 
-    axiosInstance.interceptors.response.use(resInterceptor, errInterceptor);
+    const interceptor = axiosInstance.interceptors.response.use(
+      resInterceptor,
+      errInterceptor
+    );
 
-    //return () => axiosInstance.interceptors.response.eject(interceptor);
+    return () => axiosInstance.interceptors.response.eject(interceptor);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
