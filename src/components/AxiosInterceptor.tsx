@@ -8,12 +8,13 @@ interface Props {
 }
 
 export const AxiosInterceptor = ({ children }: Props) => {
+  console.log("AxiosInterceptor rendered");
   const navigate = useNavigate();
   useEffect(() => {
     const resInterceptor = (response: AxiosResponse) => {
       return response;
     };
-
+    console.log("AxiosInterceptor effect");
     const errInterceptor = (error: AxiosError) => {
       if (error?.response?.status === 401) {
         navigate("/login");
@@ -22,12 +23,9 @@ export const AxiosInterceptor = ({ children }: Props) => {
       return Promise.reject();
     };
 
-    const interceptor = axiosInstance.interceptors.response.use(
-      resInterceptor,
-      errInterceptor
-    );
+    axiosInstance.interceptors.response.use(resInterceptor, errInterceptor);
 
-    return () => axiosInstance.interceptors.response.eject(interceptor);
+    //return () => axiosInstance.interceptors.response.eject(interceptor);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
