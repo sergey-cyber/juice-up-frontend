@@ -35,6 +35,10 @@ export const TlgNotificationFormItem = ({
         .then((res) => {
           setModalVisible(false);
           onCreate(res);
+          notification.success({
+            ...commonEventProps,
+            message: "Notification created successfull"
+          });
         })
         .catch((err?: AxiosError) =>
           notification.error({
