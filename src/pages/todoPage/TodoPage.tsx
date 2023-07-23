@@ -6,8 +6,10 @@ import { Todo, TodoStatus } from "../../types/entities/Todo";
 import { Loader } from "../../components/Loader";
 import { PageHeader } from "../../components/PageHeader";
 import { Button, Checkbox, Form, Input, Select } from "antd";
-import { Description } from "../../components/formElements/Description";
+import { TextArea } from "../../components/formElements/TextArea";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
+import { TlgNotification } from "../../types/entities/TlgNotification";
+import { TlgNotificationFormItem } from "./TlgNotificationFormItem";
 
 export const TodoPage = () => {
   const client = useClient();
@@ -17,6 +19,7 @@ export const TodoPage = () => {
 
   const [todo, setTodo] = useState<Todo>();
   const [isSaving, setIsSaving] = useState(false);
+  const [tlgNotice, setTlgNotice] = useState<TlgNotification>();
 
   const { loading } = useFetch(
     () => client.todos.getById(todoId || ""),
@@ -26,6 +29,18 @@ export const TodoPage = () => {
     },
     () => console.log("error"),
     [todoId]
+  );
+
+  const { loading: tlgNoticeLoading } = useFetch(
+    () => {
+      if (todo?.tlgNotification) {
+        return client.tlgNotification.get(todo.tlgNotification);
+      }
+      return Promise.resolve(undefined);
+    },
+    (res) => setTlgNotice(res as TlgNotification | undefined),
+    () => console.log(),
+    [todo?.tlgNotification]
   );
 
   const save = () => {
@@ -51,7 +66,7 @@ export const TodoPage = () => {
         <Form.Item name={"name"} label="Name" required>
           <Input />
         </Form.Item>
-        <Description />
+        <TextArea />
         <Form.Item name={"status"} label="Status">
           <Select
             //style={{ width: 120 }}
@@ -62,8 +77,20 @@ export const TodoPage = () => {
           />
         </Form.Item>
         <Form.Item valuePropName="checked" name={"isImportant"}>
-          <Checkbox>Mark as important</Checkbox>
+          <Checkbox>Mark this todo as important</Checkbox>
         </Form.Item>
+        <Form.Item label="Notification settings">
+          {tlgNoticeLoading ? (
+            <Loader />
+          ) : (
+            <TlgNotificationFormItem
+              onCreate={(id) => console.log(id)}
+              notifyObject={tlgNotice}
+              todoId={todo?.id}
+            />
+          )}
+        </Form.Item>
+
         <Form.Item>
           <Button onClick={save} type="primary">
             Save

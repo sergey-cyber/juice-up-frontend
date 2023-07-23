@@ -33,8 +33,15 @@ export class Requestable {
         store.dispatch(setError(null));
         return response.data;
       })
-      .catch((err: AxiosError) =>
-        store.dispatch(setError(err.response?.status))
-      );
+      .catch((err?: AxiosError) => {
+        store.dispatch(setError(err?.response?.status));
+        throw new AxiosError(
+          err?.message,
+          undefined,
+          undefined,
+          undefined,
+          err?.response
+        );
+      });
   }
 }

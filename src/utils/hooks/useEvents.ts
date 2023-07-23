@@ -1,6 +1,9 @@
 import { useCallback, useMemo } from "react";
 import { useNotification } from "../../context/NotificationContext";
-import { ArgsProps } from "antd/es/notification/interface";
+import {
+  ArgsProps,
+  NotificationPlacement
+} from "antd/es/notification/interface";
 
 export enum Events {
   //Calendar
@@ -41,16 +44,15 @@ export enum Events {
   LOGIN_FAILURE
 }
 
+export const commonEventProps = {
+  placement: "bottomRight" as NotificationPlacement,
+  duration: 2
+};
+
 export const useEvent = () => {
   const notify = useNotification();
 
-  const defaultProps: Partial<ArgsProps> = useMemo(
-    () => ({
-      placement: "bottomRight",
-      duration: 2
-    }),
-    []
-  );
+  const defaultProps: Partial<ArgsProps> = useMemo(() => commonEventProps, []);
 
   const setEvent = useCallback(
     (event: Events) => {

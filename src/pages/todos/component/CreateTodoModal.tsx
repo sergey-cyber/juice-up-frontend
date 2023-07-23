@@ -1,7 +1,7 @@
 import { TrackerModal } from "../../../components/TrackerModal";
 import { Form, Input } from "antd";
 import { Todo } from "../../../types/entities/Todo";
-import { Description } from "../../../components/formElements/Description";
+import { TextArea } from "../../../components/formElements/TextArea";
 
 interface Props {
   loading: boolean;
@@ -28,7 +28,7 @@ export const CreateTodoModal = ({ open, onCancel, onOk, loading }: Props) => {
         <Form.Item name={"name"} label="Name" required>
           <Input />
         </Form.Item>
-        <Description />
+        <TextArea />
       </Form>
     </TrackerModal>
   );

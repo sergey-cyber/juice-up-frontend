@@ -14,4 +14,5 @@ export interface Todo {
   scope: number;
   status?: TodoStatus;
   isImportant?: boolean;
+  tlgNotification?: number;
 }
