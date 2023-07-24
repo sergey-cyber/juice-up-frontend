@@ -3,14 +3,20 @@ import { useClient } from "../../context/client";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest, RegisterRequest } from "../../types/auth/auth";
-import { Events, useEvent } from "../../utils/hooks/useEvents";
+import {
+  Events,
+  commonEventProps,
+  useEvent
+} from "../../utils/hooks/useEvents";
 import { useForm } from "antd/es/form/Form";
+import { useNotification } from "../../context/NotificationContext";
 
 export const Login = () => {
   const client = useClient();
   const navigate = useNavigate();
   const { setEvent } = useEvent();
   const [form] = useForm();
+  const notification = useNotification();
 
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
@@ -30,11 +36,17 @@ export const Login = () => {
             form.resetFields();
             setIsLogin(true);
           })
-          .catch(() => setEvent(Events.REGISTRATION_FAILURE));
+          .catch((err) =>
+            notification.error({
+              ...commonEventProps,
+              //@ts-ignore
+              message: err?.response?.data?.message
+            })
+          );
       }
       return Promise.reject();
     },
-    [client.auth, form, isLogin, navigate, setEvent]
+    [client.auth, form, isLogin, navigate, notification, setEvent]
   );
 
   const onFinish = (values: LoginRequest | RegisterRequest) => {
