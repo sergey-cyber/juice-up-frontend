@@ -7,6 +7,7 @@ import { useClient } from "../../context/client";
 import { Todo } from "../../types/entities/Todo";
 import { Loader } from "../../components/Loader";
 import { FORMAT } from "../../utils/utils";
+import { toTodos } from "../../route-config";
 
 export const CalendarPage = () => {
   const client = useClient();
@@ -35,7 +36,7 @@ export const CalendarPage = () => {
           date.format(FORMAT).split("-")[2] ||
         date.format(FORMAT) === dayjs().format(FORMAT);
       if (isClickedOnDay) {
-        navigate(`/todos/${date.format(FORMAT)}`);
+        navigate(toTodos(date.format(FORMAT)));
       } else {
         setValue(date);
       }

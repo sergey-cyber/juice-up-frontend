@@ -2,23 +2,20 @@ import { Layout, Row, Space, Typography, notification } from "antd";
 import { PropsWithChildren } from "react";
 const { Header, Content } = Layout;
 import "./App.less";
-import {
-  CalendarOutlined,
-  HomeOutlined,
-  MenuOutlined
-} from "@ant-design/icons";
+import { CalendarOutlined, MenuOutlined } from "@ant-design/icons";
 import {
   Navigate,
   useLocation,
   useNavigate,
   useRoutes
 } from "react-router-dom";
-import { routes, toCalendar, toHome } from "./route-config";
+import { routes, toCalendar } from "./route-config";
 import { ClientContext } from "./context/client";
 import { Client } from "./api/client";
 import { NotificationContext } from "./context/NotificationContext";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
+import { BreadCrumbs } from "./components/BreadCrumbs";
 
 const headerIconStyle = { color: "#fff", fontSize: 20 };
 
@@ -71,10 +68,6 @@ export function App() {
               </Typography.Title>
             </Space>
             <Space size={15}>
-              <HomeOutlined
-                onClick={() => navigate(toHome())}
-                style={headerIconStyle}
-              />
               <CalendarOutlined
                 onClick={() => navigate(toCalendar())}
                 style={headerIconStyle}
@@ -82,7 +75,7 @@ export function App() {
             </Space>
           </Row>
         </Header>
-
+        <BreadCrumbs />
         <Content className="app-content">{content}</Content>
       </Layout>
     </AppContext>

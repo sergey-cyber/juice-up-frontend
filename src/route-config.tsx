@@ -7,43 +7,62 @@ import { ScopePage } from "./pages/backlog/ScopePage";
 import { SimpleListPage } from "./pages/simpleList/SimpleList";
 import { ListItem } from "./pages/simpleList/ListItem";
 import { Login } from "./pages/login/Login";
+import { HomeOutlined } from "@ant-design/icons";
+import { Space } from "antd";
+import { BreadcrumbComponentProps } from "use-react-router-breadcrumbs";
 
 export const routes = [
   {
     path: "/",
-    element: <HomePage />
+    element: <HomePage />,
+    breadcrumb: () => (
+      <Space size={3}>
+        <HomeOutlined />
+        Home
+      </Space>
+    )
   },
   {
     path: "/calendar",
-    element: <CalendarPage />
+    element: <CalendarPage />,
+    breadcrumb: "Calendar"
   },
   {
-    path: "/todos/:day",
-    element: <Todos />
+    path: "/:day",
+    element: <Todos />,
+    breadcrumb: (props: BreadcrumbComponentProps) => (
+      <>{"Todos in " + props.location.pathname.split("/")[1]}</>
+    )
   },
   {
-    path: "/todos/:day/:todoId",
-    element: <TodoPage />
+    path: "/:day/:todoId",
+    element: <TodoPage />,
+    breadcrumb: "Todo details"
   },
   {
     path: "/backlog",
-    element: <Backlog />
+    element: <Backlog />,
+    breadcrumb: "Backlog"
   },
   {
     path: "/backlog/:scopeId",
-    element: <ScopePage />
+    element: <ScopePage />,
+    breadcrumb: "Todos in backlog"
   },
   {
     path: "/backlog/:scopeId/:todoId",
-    element: <TodoPage />
+    element: <TodoPage />,
+    breadcrumb: "Todo details"
   },
   {
     path: "/simple-list",
-    element: <SimpleListPage />
+    element: <SimpleListPage />,
+    breadcrumb: "Simple list"
   },
   {
     path: "/simple-list/:listId",
-    element: <ListItem />
+    element: <ListItem />,
+    breadcrumb: "Items"
   },
   {
     path: "/login",
@@ -57,8 +76,7 @@ export const routes = [
 
 export const toHome = () => "/";
 export const toCalendar = () => "/calendar";
-export const toTodos = (day: string) => `/todos/${day}`;
-export const toTodoPage = (day: string, todoId: number) =>
-  `/todos/${day}/${todoId}`;
+export const toTodos = (day: string) => `/${day}`;
+export const toTodoPage = (day: string, todoId: number) => `/${day}/${todoId}`;
 export const toBacklog = () => "/backlog";
 export const toSimpleList = () => "/simple-list";
