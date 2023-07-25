@@ -10,6 +10,7 @@ import { TextArea } from "../../components/formElements/TextArea";
 import { Events, useEvent } from "../../utils/hooks/useEvents";
 import { TlgNotification } from "../../types/entities/TlgNotification";
 import { TlgNotificationFormItem } from "./TlgNotificationFormItem";
+import { ObjectNotFound } from "../../components/ObjectNotFound";
 
 export const TodoPage = () => {
   const client = useClient();
@@ -59,6 +60,10 @@ export const TodoPage = () => {
     return <Loader />;
   }
 
+  if (!todo) {
+    return <ObjectNotFound oid={todoId} />;
+  }
+
   return (
     <>
       <PageHeader title={todo?.name} />
@@ -79,12 +84,13 @@ export const TodoPage = () => {
         <Form.Item valuePropName="checked" name={"isImportant"}>
           <Checkbox>Mark this todo as important</Checkbox>
         </Form.Item>
-        <Form.Item label="Notification settings">
+        <Form.Item label="Notification">
           {tlgNoticeLoading ? (
             <Loader />
           ) : (
             <TlgNotificationFormItem
-              onCreate={(id) => console.log(id)}
+              onCreate={(id) => setTodo({ ...todo, tlgNotification: id })}
+              onDelete={() => setTodo({ ...todo, tlgNotification: undefined })}
               notifyObject={tlgNotice}
               todoId={todo?.id}
             />

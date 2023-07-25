@@ -1,6 +1,6 @@
-import { Button, Space } from "antd";
+import { Button, Col, Input, Row, Space } from "antd";
 import { TlgNotification } from "../../types/entities/TlgNotification";
-import { PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useCallback, useState } from "react";
 import {
   TlgNoticeFormData,
@@ -10,16 +10,19 @@ import { useClient } from "../../context/client";
 import { AxiosError } from "axios";
 import { useNotification } from "../../context/NotificationContext";
 import { commonEventProps } from "../../utils/hooks/useEvents";
+import dayjs from "dayjs";
 
 interface Props {
   notifyObject?: TlgNotification;
   onCreate: (id: number) => void;
+  onDelete: () => void;
   todoId?: number;
 }
 
 export const TlgNotificationFormItem = ({
   notifyObject,
   onCreate,
+  onDelete,
   todoId
 }: Props) => {
   const notification = useNotification();
@@ -53,6 +56,28 @@ export const TlgNotificationFormItem = ({
     [client.tlgNotification, notification, onCreate, todoId]
   );
 
+  const remove = useCallback(() => {
+    setLoading(true);
+    client.tlgNotification
+      .delete(notifyObject?.id || -1)
+      .then(() => {
+        notification.success({
+          ...commonEventProps,
+          message: "Notification removed succesfull"
+        });
+        onDelete();
+      })
+      .catch((err) => {
+        notification.error({
+          ...commonEventProps,
+          //@ts-ignore
+          message: err?.response?.data?.message,
+          duration: 5
+        });
+      })
+      .finally(() => setLoading(false));
+  }, [client.tlgNotification, notification, notifyObject?.id, onDelete]);
+
   if (!notifyObject) {
     return (
       <>
@@ -72,5 +97,22 @@ export const TlgNotificationFormItem = ({
   }
 
   //TODO: add notification display and delete/update logic
-  return <Space>{JSON.stringify(notifyObject)}</Space>;
+  return (
+    <Row justify={"space-between"} wrap={false} gutter={[10, 10]}>
+      <Col flex="auto">
+        <Input
+          readOnly
+          value={dayjs(notifyObject.executeTimestamp).format(
+            "YYYY-MM-DD in HH:mm"
+          )}
+        />
+      </Col>
+      <Col>
+        <Button icon={<EditOutlined />} />
+      </Col>
+      <Col>
+        <Button danger icon={<DeleteOutlined />} onClick={remove} />
+      </Col>
+    </Row>
+  );
 };
