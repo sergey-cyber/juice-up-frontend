@@ -3,7 +3,6 @@ import { TrackerModal } from "../../components/TrackerModal";
 import { useForm } from "antd/es/form/Form";
 import { TlgNotification } from "../../types/entities/TlgNotification";
 import { TextArea } from "../../components/formElements/TextArea";
-import dayjs from "dayjs";
 
 export type TlgNoticeFormData = Omit<TlgNotification, "id" | "recipient_id">;
 
@@ -36,12 +35,6 @@ export const TlgNotificationModal = ({
         <Form.Item label={"Notification"} name={"executeTimestamp"}>
           <Row style={{ width: "100%" }}>
             <DatePicker
-              disabledDate={(current) => {
-                return (
-                  dayjs().add(-1, "days") >= current ||
-                  dayjs().add(1, "month") <= current
-                );
-              }}
               showNow={false}
               style={{ width: "100%" }}
               showTime
