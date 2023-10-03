@@ -1,11 +1,12 @@
-import { CalendarOutlined } from "@ant-design/icons";
-import { Avatar, Row, Space, Typography } from "antd";
+import { CalendarOutlined, SettingOutlined } from "@ant-design/icons";
+import { Avatar, Col, Row, Space, Typography } from "antd";
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   toBacklog,
   toCalendar,
   toSimpleList,
+  toSystemConfig,
   toTodos
 } from "../../route-config";
 import dayjs from "dayjs";
@@ -16,22 +17,45 @@ export const HomePage = () => {
   return (
     <div className="home-page">
       <Row justify="space-between">
-        <Item
-          link={toTodos(dayjs().format(FORMAT))}
-          icon={ICONS.todo()}
-          caption="Todo today"
-        />
-        <Item
-          link={toCalendar()}
-          icon={<CalendarOutlined />}
-          caption="To-do calendar"
-        />
-        <Item link={toBacklog()} icon={ICONS.backlog} caption="Backlog" />
-        <Item
-          link={toSimpleList()}
-          icon={ICONS.simpleList}
-          caption="Simple list"
-        />
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={12}
+        >
+          <Item
+            link={toTodos(dayjs().format(FORMAT))}
+            icon={ICONS.todo()}
+            caption="Todo today"
+          />
+          <Item link={toBacklog()} icon={ICONS.backlog} caption="Backlog" />
+          <Item
+            link={toSystemConfig()}
+            icon={<SettingOutlined />}
+            caption="System configuration"
+          />
+        </Col>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={12}
+        >
+          <Item
+            link={toCalendar()}
+            icon={<CalendarOutlined />}
+            caption="To-do calendar"
+          />
+          <Item
+            link={toSimpleList()}
+            icon={ICONS.simpleList}
+            caption="Simple list"
+          />
+        </Col>
       </Row>
     </div>
   );

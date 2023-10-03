@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiErrorsReducer } from "./reducers/apiErrors";
-// ...
+import { systemConfigurationApi } from "./services/SystemConfiguration";
 
 export const store = configureStore({
   reducer: {
-    apiErrors: apiErrorsReducer
-  }
+    apiErrors: apiErrorsReducer,
+    [systemConfigurationApi.reducerPath]: systemConfigurationApi.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(systemConfigurationApi.middleware)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

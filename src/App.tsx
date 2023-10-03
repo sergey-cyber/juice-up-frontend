@@ -1,23 +1,16 @@
-import { Layout, Row, Space, Typography, notification } from "antd";
+import { Layout, notification } from "antd";
 import { PropsWithChildren } from "react";
-const { Header, Content } = Layout;
+const { Content } = Layout;
 import "./App.less";
-import { CalendarOutlined, MenuOutlined } from "@ant-design/icons";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useRoutes
-} from "react-router-dom";
-import { routes, toCalendar } from "./route-config";
+import { Navigate, useLocation, useRoutes } from "react-router-dom";
+import { routes } from "./route-config";
 import { ClientContext } from "./context/client";
 import { Client } from "./api/client";
 import { NotificationContext } from "./context/NotificationContext";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import { BreadCrumbs } from "./components/BreadCrumbs";
-
-const headerIconStyle = { color: "#fff", fontSize: 20 };
+import { AppHeader } from "./AppHeader";
 
 //@ts-ignore
 console.log(process.env.NODE_ENV);
@@ -37,7 +30,6 @@ const AppContext = (props: PropsWithChildren) => {
 };
 
 export function App() {
-  const navigate = useNavigate();
   const location = useLocation();
   const content = useRoutes(routes);
 
@@ -52,29 +44,7 @@ export function App() {
   return (
     <AppContext>
       <Layout>
-        <Header
-          className="app-header"
-          style={{ position: "sticky", top: 0, zIndex: 10 }}
-        >
-          <Row
-            align={"middle"}
-            justify={"space-between"}
-            style={{ height: "100%" }}
-          >
-            <Space size={15}>
-              <MenuOutlined style={headerIconStyle} />
-              <Typography.Title level={5} style={{ color: "#fff", margin: 0 }}>
-                Tracker
-              </Typography.Title>
-            </Space>
-            <Space size={15}>
-              <CalendarOutlined
-                onClick={() => navigate(toCalendar())}
-                style={headerIconStyle}
-              />
-            </Space>
-          </Row>
-        </Header>
+        <AppHeader />
         <BreadCrumbs />
         <Content className="app-content">{content}</Content>
       </Layout>
