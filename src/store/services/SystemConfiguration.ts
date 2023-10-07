@@ -10,16 +10,19 @@ export const systemConfigurationApi = createApi({
       baseUrl: baseApiUrl + "/systemConfigurations"
     })
   ),
+  tagTypes: ["SystemConfig"],
   endpoints: (builder) => ({
     getSystemConfig: builder.query<SystemConfigurationType, string>({
-      query: () => "/"
+      query: () => "/",
+      providesTags: ["SystemConfig"]
     }),
     updateSystemConfig: builder.mutation<string, SystemConfigurationType>({
       query: (config: SystemConfigurationType) => ({
         url: `/${config.id}`,
         method: "PUT",
         body: config
-      })
+      }),
+      invalidatesTags: ["SystemConfig"]
     })
   })
 });
