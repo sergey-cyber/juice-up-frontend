@@ -11,6 +11,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import { BreadcrumbComponentProps } from "use-react-router-breadcrumbs";
 import { SystemConfigContainer } from "./pages/systemConfig/SystemConfigContainer";
+import { Profile } from "./pages/profile/Profile";
 
 export const routes = [
   {
@@ -74,6 +75,7 @@ export const routes = [
     element: <SystemConfigContainer />,
     breadcrumb: "System configuration"
   },
+  { path: "/profile", breadcrumb: "Profile", element: <Profile /> },
   {
     path: "*",
     element: <h1>Not found page</h1>
@@ -87,3 +89,4 @@ export const toTodoPage = (day: string, todoId: number) => `/${day}/${todoId}`;
 export const toBacklog = () => "/backlog";
 export const toSimpleList = () => "/simple-list";
 export const toSystemConfig = () => "/system-config";
+export const toProfile = () => "/profile";

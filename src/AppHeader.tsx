@@ -1,7 +1,11 @@
-import { Drawer, Layout, Row, Space, Typography } from "antd";
+import { Avatar, Drawer, Layout, Typography } from "antd";
 const { Header } = Layout;
-import { CalendarOutlined, MenuOutlined } from "@ant-design/icons";
-import { toCalendar, toSystemConfig } from "./route-config";
+import {
+  CalendarOutlined,
+  MenuOutlined,
+  UserOutlined
+} from "@ant-design/icons";
+import { toCalendar, toProfile, toSystemConfig } from "./route-config";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
@@ -19,7 +23,11 @@ const StyledMenuItem = styled.div`
   transition: all 0.5s;
 `;
 
-export const AppHeader = () => {
+interface Props {
+  avatar?: string;
+}
+
+export const AppHeader = ({ avatar }: Props) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -28,24 +36,23 @@ export const AppHeader = () => {
       className="app-header"
       style={{ position: "sticky", top: 0, zIndex: 10 }}
     >
-      <Row
-        align={"middle"}
-        justify={"space-between"}
-        style={{ height: "100%" }}
-      >
-        <Space size={15}>
-          <MenuOutlined style={headerIconStyle} onClick={() => setOpen(true)} />
-          <Typography.Title level={5} style={{ color: "#fff", margin: 0 }}>
-            Tracker
-          </Typography.Title>
-        </Space>
-        <Space size={15}>
-          <CalendarOutlined
-            onClick={() => navigate(toCalendar())}
-            style={headerIconStyle}
-          />
-        </Space>
-      </Row>
+      <div className="app-header-item">
+        <MenuOutlined style={headerIconStyle} onClick={() => setOpen(true)} />
+        <Typography.Title level={5} style={{ color: "#fff", margin: 0 }}>
+          Tracker
+        </Typography.Title>
+      </div>
+      <div className="app-header-item">
+        <CalendarOutlined
+          onClick={() => navigate(toCalendar())}
+          style={headerIconStyle}
+        />
+        <Avatar
+          onClick={() => navigate(toProfile())}
+          icon={avatar ? undefined : <UserOutlined />}
+          src={"avatar"}
+        />
+      </div>
       <Drawer
         title="Application menu"
         placement="left"

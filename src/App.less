@@ -12,11 +12,20 @@ body {
   }
 }
 
-@header-height: 50px;
+@header-height: 64px;
 
 .app-header {
   height: @header-height;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+  }
 }
 
 .app-content {

@@ -1,9 +1,11 @@
-import { Navigate } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { systemConfigurationApi } from "../../store/services/SystemConfiguration";
 import { SystemConfig } from "./SystemConfig";
+import { useDispatch } from "react-redux";
+import { setError } from "../../store/reducers/apiErrors";
 
 export const SystemConfigContainer = () => {
+  const dispatch = useDispatch();
   const { data, isLoading, error } =
     systemConfigurationApi.useGetSystemConfigQuery("");
 
@@ -11,8 +13,8 @@ export const SystemConfigContainer = () => {
     return <Loader />;
   }
 
-  if (error && "status" in error && error.status === 401) {
-    return <Navigate to={"/login"} />;
+  if (error && "status" in error) {
+    dispatch(setError(error.status as number));
   }
 
   if (!data) {
